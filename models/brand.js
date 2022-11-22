@@ -13,7 +13,7 @@ const BrandSchema = Schema({
     
 })
 
-Brandchema.methods.toJSON = function (){
+BrandSchema.methods.toJSON = function (){
     const { __v, ...data } = this.toObject();
  
     return data;
