@@ -45,12 +45,6 @@ const router = Router();
 
 router.get('/', brandsGet);
 
-router.get('/:id', [    
-    check('id','No Mongo id').isMongoId(), 
-    check('id').custom(brandExists),
-    validateFields
-], );
-
 router.post('/',[validateJWT,
     jsonParser,
     body('name', 'Name required').not().isEmpty(),
