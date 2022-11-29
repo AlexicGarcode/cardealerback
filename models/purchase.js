@@ -1,7 +1,7 @@
 
 const { Schema, model } = require('mongoose');
 
-const Purchasechema = Schema({
+const PurchaseSchema = Schema({
     model: {
         type: Schema.Types.ObjectId,
         ref: 'Model',
