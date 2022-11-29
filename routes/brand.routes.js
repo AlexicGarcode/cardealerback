@@ -56,6 +56,5 @@ router.put('/:id',[validateJWT,
      jsonParser, 
     body('name', 'Name required').not().isEmpty(), 
     validateFields], brandsPut);
-/* router.delete('/:id', [validateJWT,  check('id','No Mongo id').isMongoId(),   check('id').custom(brandExists), validateFields ], brandsDelete); */
 
 module.exports = router;
