@@ -1,6 +1,7 @@
 
 const { User } = require('../models');
 const bcryptjs = require('bcryptjs');
+const { genrateJWT} = require('../helpers/generate-jwt');
 
 
 
