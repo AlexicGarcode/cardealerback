@@ -1,4 +1,3 @@
-
 const { Schema, model } = require('mongoose');
 
 const PurchaseSchema = Schema({
@@ -7,7 +6,6 @@ const PurchaseSchema = Schema({
         ref: 'Model',
         required: true
     },
-    
     user: {
         type: Schema.Types.ObjectId,
         ref: 'User',
