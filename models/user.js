@@ -22,7 +22,7 @@ const userSchema = Schema({
     },
     address :{
         type: String,
-        required: [true, 'address required']        
+        default: ''        
     },
     city :{
         type: String,
@@ -39,6 +39,10 @@ const userSchema = Schema({
     country :{
         type: String,
         default: ''       
+    },
+    status :{
+        type: Boolean,
+        default: true
     }
 })
 
