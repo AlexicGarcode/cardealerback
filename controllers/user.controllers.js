@@ -25,6 +25,17 @@ const verifyUser = async (req, res) => {
     res.json({ user:userFound, token })
 }
 
+const usersGetById = async(req, res) =>{
+    const { id } = req.params;
+
+    const user = await User.findById(id);
+
+
+
+    res.json(user);
+
+}
+
 const usersPost = async (req, res) => {
 
     const user = new User(req.body);
@@ -77,5 +88,6 @@ module.exports = {
     verifyUser,
     usersPost,
     usersPut,
-    usersDelete
+    usersDelete,
+    usersGetById
 }

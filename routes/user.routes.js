@@ -11,6 +11,15 @@ const router = Router();
 
 router.get('/',  validateJWT,  verifyUser);
 
+router.get('/:id', [  
+    validateJWT,
+
+    check('id','No Mongo id').isMongoId(),
+
+    validateFields
+
+], usersGetById );
+
 router.post('/',
     [
      jsonParser,

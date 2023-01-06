@@ -1,40 +1,38 @@
 
 const { Model } = require('../models');
 
-const modelsPaginatePost = async(req, res) =>{
+const modelsPaginatePost = async (req, res) => {
+  const { limit = 9, desde = 0, pag = 1 } = req.body;
 
-    const { limit = 9, desde=0, pag=1} = req.body;
+  let page = pag;
 
-    let page = pag;
-    let query = { status: true};
-    let skip_number = desde;
+  let skip_number = desde;
 
+  const total = await Model.countDocuments();
 
-    const total = await Model.countDocuments(query);
+  let total_pages = Math.ceil(total / limit);
 
+  if (page > total_pages) {
+    page = total_pages;
+  }
 
+  page = pag - 1;
 
-   let  total_pages = Math.ceil(total / limit);
+  desd = page * limit;
 
-    if(page > total_pages){
-        page = total_pages;
-    }
+  if (desd < 0) {
+    desd = 0;
+  }
 
-    page = pag -1;
-    desd = page * limit;
+  const models = await Model.find()
 
-    if(desd < 0){
-        desd = 0;
-    }
+    .populate("brand", "name")
 
+    .skip(Number(desd))
+    .limit(Number(limit));
 
-    const models = await  Model.find(query)
-    .populate('brand', 'name')
-    .skip(Number(desd)).limit(Number(limit));
-
-
-    res.json({ models, total, total_pages, limit, skip_number })
-}
+  res.json({ models, total, total_pages, limit, skip_number });
+};
 
 
 const modelsGetById = async (req, res) => {
