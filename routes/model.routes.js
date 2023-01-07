@@ -9,11 +9,17 @@ const { modelExists, brandExists } = require('../helpers/validate-db');
 
 const router = Router(); 
 
-router.get('/:id', [    
+/* router.get('/:id', [    
     check('id','No Mongo id').isMongoId(), 
     check('id').custom(modelExists),
     validateFields
-], modelsGetById );
+], modelsGetById ); */
+
+router.get(
+  "/:id",
+  [validateJWT, check("id", "No Mongo id").isMongoId(), validateFields],
+  usersGetById
+);
 
 router.post('/',[validateJWT,
     jsonParser,
