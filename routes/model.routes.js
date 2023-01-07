@@ -9,11 +9,15 @@ const { modelExists, brandExists } = require('../helpers/validate-db');
 
 const router = Router(); 
 
-/* router.get('/:id', [    
-    check('id','No Mongo id').isMongoId(), 
-    check('id').custom(modelExists),
-    validateFields
-], modelsGetById ); */
+router.get(
+  "/:id",
+  [
+    check("id", "No Mongo id").isMongoId(),
+    check("id").custom(modelExists),
+    validateFields,
+  ],
+  modelsGetById
+); 
 
 router.get(
   "/:id",
