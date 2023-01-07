@@ -35,12 +35,12 @@ const modelsPaginatePost = async (req, res) => {
 };
 
 
-const modelsGetById = async (req, res) => {
+/* const modelsGetById = async (req, res) => {
     const { id } = req.params;
     const model = await Model.findById(id).populate('brand', 'name');
 
     res.json(model);
-}
+} */
 
 
 const modelsPost = async (req, res) => {
@@ -91,7 +91,6 @@ const modelsPutStock = async (req, res) => {
 
 module.exports = {
     modelsPaginatePost,
-    modelsGetById,
     modelsPost,
     modelsPut,
     modelsPutStock
