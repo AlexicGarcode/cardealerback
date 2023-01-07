@@ -19,11 +19,11 @@ router.get(
   modelsGetById
 ); 
 
-router.get(
+/* router.get(
   "/:id",
   [validateJWT, check("id", "No Mongo id").isMongoId(), validateFields],
   usersGetById
-);
+); */
 
 router.post('/',[validateJWT,
     jsonParser,
