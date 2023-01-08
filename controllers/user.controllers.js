@@ -25,40 +25,36 @@ const verifyUser = async (req, res) => {
     res.json({ user:userFound, token })
 }
 
-const usersGetById = async(req, res) =>{
-    const { id } = req.params;
+const usersGetById = async (req, res) => {
+  const { id } = req.params;
 
-    const user = await User.findById(id);
+  const user = await User.findById(id);
 
-
-
-    res.json(user);
-
-}
+  res.json(user);
+};
 
 const usersPost = async (req, res) => {
+  const user = new User(req.body);
 
-    const user = new User(req.body);
+  const existEmail = await User.findOne({ email: user.email });
 
-    const existEmail = await User.findOne({ email: user.email });
+  if (existEmail) {
+    return res.status(400).json({
+      msg: "Ese correo ya esta registrado",
+    });
+  }
 
-    if (existEmail) {
-        return res.status(400).json({
-            'msg': 'Ese correo ya esta registrado'
-        })
-    }
+  const salt = bcryptjs.genSaltSync();
 
-    const salt = bcryptjs.genSaltSync();
+  user.password = bcryptjs.hashSync(user.password, salt);
 
-    user.password = bcryptjs.hashSync(user.password, salt);
+  await user.save();
 
-    await user.save();
-
-    res.json({
-        'msg': 'post',
-        user
-    })
-}
+  res.json({
+    msg: "post",
+    user,
+  });
+};
 
 const usersPut = async (req, res) => {
 

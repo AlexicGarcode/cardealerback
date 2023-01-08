@@ -7,7 +7,6 @@ const ModelSchema = Schema({
     }, */
   name: {
     type: String,
-
     required: ["name required"],
   },
   imgs: {

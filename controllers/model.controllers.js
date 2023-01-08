@@ -44,27 +44,25 @@ const modelsPaginatePost = async (req, res) => {
 
 
 const modelsPost = async (req, res) => {
+  const { model, ...resto } = req.body;
 
-    const { model, ...resto } = req.body;
+  const modelDB = await Model.findOne({ model });
 
-    const modelDB = await Model.findOne({ model });
+  if (modelDB) {
+    return res.status(400).json({ msg: `model ${model} exist` });
+  }
 
-    if (modelDB) {
-        return res.status(400).json({ msg: `model ${model} exist` });
-    }
+  const data = {
+    ...resto,
+    model,
+  };
 
-    const data = {
-        ...resto,
-        model
-    }
+  const models = new Model(data);
 
-    const models = new Model(data);
+  await models.save();
 
-    await models.save();
-
-    res.status(201).json(models);
-
-}
+  res.status(201).json(models);
+};
 
 
 const modelsPut = async (req, res) => {

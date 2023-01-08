@@ -2,14 +2,14 @@ const { Router } = require('express');
 const { body, check } = require('express-validator');
 const bodyParser = require('body-parser');
 const { validateFields, validateJWT } = require('../middlewares');
-const { modelsPost, modelsPut, modelsPaginatePost } = require('../controllers/model.controllers');
+const { modelsPost, modelsPut, modelsPaginatePost, modelsGetById } = require('../controllers/model.controllers');
 const  jsonParser = bodyParser.json();
 
 const { modelExists, brandExists } = require('../helpers/validate-db');
 
 const router = Router(); 
 
-/* router.get(
+router.get(
   "/:id",
   [
     check("id", "No Mongo id").isMongoId(),
@@ -17,7 +17,7 @@ const router = Router();
     validateFields,
   ],
   modelsGetById
-); */ 
+); 
 
 router.post('/',[validateJWT,
     jsonParser,

@@ -9,7 +9,7 @@ const { validateFields, validateJWT } = require('../middlewares');
 
 const router = Router();
 
-router.get('/',  validateJWT,  verifyUser);
+/* router.get('/',  validateJWT,  verifyUser); */
 
 router.get(
     "/:id",
