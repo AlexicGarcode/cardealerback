@@ -3,6 +3,12 @@ const { User } = require('../models');
 const bcryptjs = require('bcryptjs');
 const { generateJWT } = require('../helpers/generate-jwt');
 
+const usersGetById = async (req, res) => {
+  const { id } = req.params;
+  const user = await User.findById(id);
+
+  res.json(user);
+};
 
 const verifyUser = async (req, res) => {
 
@@ -24,14 +30,6 @@ const verifyUser = async (req, res) => {
 
     res.json({ user:userFound, token })
 }
-
-const usersGetById = async (req, res) => {
-  const { id } = req.params;
-
-  const user = await User.findById(id);
-
-  res.json(user);
-};
 
 const usersPost = async (req, res) => {
   const user = new User(req.body);
@@ -74,9 +72,9 @@ const usersPut = async (req, res) => {
 
 const usersDelete = async (req, res) => {
     const { id } = req.params;
-   //  Esto sirve para eliminar un documento: const user = await User.findByIdAndDelete(id);
+    const user = await User.findByIdAndDelete(id);
 
-   const  user = await User.findByIdAndUpdate(id, { status :false });
+   /* const  user = await User.findByIdAndUpdate(id, { status :false }); */
     res.json({ 'msg': 'delete', user })
 }
 

@@ -35,13 +35,13 @@ const modelsPaginatePost = async (req, res) => {
 };
 
 
-/* const modelsGetById = async (req, res) => {
+  const modelsGetById = async (req, res) => {
     const { id } = req.params;
     const model = await Model.findById(id).populate('brand', 'name');
 
     res.json(model);
-} */
 
+  }
 
 const modelsPost = async (req, res) => {
   const { model, ...resto } = req.body;
@@ -91,5 +91,6 @@ module.exports = {
     modelsPaginatePost,
     modelsPost,
     modelsPut,
-    modelsPutStock
+    modelsPutStock,
+    modelsGetById
 }

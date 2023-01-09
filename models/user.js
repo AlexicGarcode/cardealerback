@@ -9,6 +9,30 @@ const userSchema = Schema({
         type: String,
         required: [true, 'Last name required']
     },
+    address : {
+        type: String,
+        default:''
+    },
+    phone : {
+        type: String,
+        default:''
+    },
+    city : {
+        type: String,
+        default:''
+    },
+    state : {
+        type: String,
+        default:''
+    },
+    cp : {
+        type: String,
+        default:''
+    },
+    country : {
+        type: String,
+       default:''
+    },
     email:{
         type: String,
         unique : [true, 'email unique']
@@ -17,32 +41,9 @@ const userSchema = Schema({
         type: String,
         required: [true, 'password required']
     },
-    phone :{
-        type: String        
-    },
-    address :{
-        type: String,
-        default: ''        
-    },
-    city :{
-        type: String,
-        default: ''      
-    },    
-    state :{
-        type: String,
-        default: ''      
-    },
-    cp :{
-        type: String,
-        default: ''      
-    },
-    country :{
-        type: String,
-        default: ''       
-    },
     status :{
         type: Boolean,
-        default: true
+        default : true
     }
 })
 
@@ -51,5 +52,6 @@ userSchema.methods.toJSON = function (){
     user.uid = _id;
     return user;
 }
+
 
 module.exports = model('User', userSchema);
