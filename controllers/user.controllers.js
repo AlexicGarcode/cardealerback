@@ -3,12 +3,13 @@ const { User } = require('../models');
 const bcryptjs = require('bcryptjs');
 const { generateJWT } = require('../helpers/generate-jwt');
 
-const usersGetById = async (req, res) => {
-  const { id } = req.params;
-  const user = await User.findById(id);
+const usersGetById = async(req, res) =>{
+    const { id } = req.params;
+    const user = await User.findById(id);
 
-  res.json(user);
-};
+    res.json(user);
+}
+
 
 const verifyUser = async (req, res) => {
 
@@ -32,27 +33,28 @@ const verifyUser = async (req, res) => {
 }
 
 const usersPost = async (req, res) => {
-  const user = new User(req.body);
 
-  const existEmail = await User.findOne({ email: user.email });
+    const user = new User(req.body);
 
-  if (existEmail) {
-    return res.status(400).json({
-      msg: "Ese correo ya esta registrado",
-    });
-  }
+    const existEmail = await User.findOne({ email: user.email });
 
-  const salt = bcryptjs.genSaltSync();
+    if (existEmail) {
+        return res.status(400).json({
+            'msg': 'Ese correo ya esta registrado'
+        })
+    }
 
-  user.password = bcryptjs.hashSync(user.password, salt);
+    const salt = bcryptjs.genSaltSync();
 
-  await user.save();
+    user.password = bcryptjs.hashSync(user.password, salt);
 
-  res.json({
-    msg: "post",
-    user,
-  });
-};
+    await user.save();
+
+    res.json({
+        'msg': 'post',
+        user
+    })
+}
 
 const usersPut = async (req, res) => {
 
@@ -74,7 +76,6 @@ const usersDelete = async (req, res) => {
     const { id } = req.params;
     const user = await User.findByIdAndDelete(id);
 
-   /* const  user = await User.findByIdAndUpdate(id, { status :false }); */
     res.json({ 'msg': 'delete', user })
 }
 

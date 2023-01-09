@@ -8,12 +8,11 @@ const BrandSchema = Schema({
     imgUrl:{
         type: String,
         default: ''
-    },
-    
+    }
 })
 
 BrandSchema.methods.toJSON = function (){
-    const { __v, ...data } = this.toObject();
+    const { __v,  ...data } = this.toObject();
  
     return data;
 }

@@ -1,68 +1,71 @@
 
 const { Model } = require('../models');
 
-const modelsPaginatePost = async (req, res) => {
-  const { limit = 9, desde = 0, pag = 1 } = req.body;
+const modelsPaginatePost = async(req, res) =>{
 
-  let page = pag;
+    const { limit = 9, desde=0, pag=1} = req.body;
 
-  let skip_number = desde;
-
-  const total = await Model.countDocuments();
-
-  let total_pages = Math.ceil(total / limit);
-
-  if (page > total_pages) {
-    page = total_pages;
-  }
-
-  page = pag - 1;
-
-  desd = page * limit;
-
-  if (desd < 0) {
-    desd = 0;
-  }
-
-  const models = await Model.find()
-
-    .populate("brand", "name")
-
-    .skip(Number(desd))
-    .limit(Number(limit));
-
-  res.json({ models, total, total_pages, limit, skip_number });
-};
+    let page = pag;
+    let skip_number = desde;
 
 
-  const modelsGetById = async (req, res) => {
+    const total = await Model.countDocuments();
+
+
+
+   let  total_pages = Math.ceil(total / limit);
+
+    if(page > total_pages){
+        page = total_pages;
+    }
+
+    page = pag -1;
+    desd = page * limit;
+
+    if(desd < 0){
+        desd = 0;
+    }
+
+
+    const models = await  Model.find()
+    .populate('brand', 'name')
+    .skip(Number(desd)).limit(Number(limit));
+
+
+    res.json({ models, total, total_pages, limit, skip_number })
+}
+
+
+const modelsGetById = async (req, res) => {
     const { id } = req.params;
     const model = await Model.findById(id).populate('brand', 'name');
 
     res.json(model);
+}
 
-  }
 
 const modelsPost = async (req, res) => {
-  const { model, ...resto } = req.body;
 
-  const modelDB = await Model.findOne({ model });
+    const { model, ...resto } = req.body;
 
-  if (modelDB) {
-    return res.status(400).json({ msg: `model ${model} exist` });
-  }
+    const modelDB = await Model.findOne({ model });
 
-  const data = {
-    ...resto,
-    model,
-  };
+    if (modelDB) {
+        return res.status(400).json({ msg: `model ${model} exist` });
+    }
 
-  const models = new Model(data);
+    const data = {
+        ...resto,
+        model
+    }
 
-  await models.save();
+    const models = new Model(data);
 
-  res.status(201).json(models);
-};
+    await models.save();
+
+    res.status(201).json(models);
+
+}
 
 
 const modelsPut = async (req, res) => {
@@ -89,8 +92,8 @@ const modelsPutStock = async (req, res) => {
 
 module.exports = {
     modelsPaginatePost,
+    modelsGetById,
     modelsPost,
     modelsPut,
-    modelsPutStock,
-    modelsGetById
+    modelsPutStock
 }

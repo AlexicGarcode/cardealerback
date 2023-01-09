@@ -20,11 +20,11 @@ class Server {
         this.app.use('/api/brands', require('../routes/brand.routes'));
         this.app.use('/api/models', require('../routes/model.routes'));
         this.app.use('/api/users', require('../routes/user.routes'));
-        this.app.use('/api/purchases', require('../routes/purchase.routes'));
     }
 
     middlewares(){
         this.app.use(cors());
+        
     }
 
     listen(){
