@@ -1,42 +1,52 @@
-const { Brand } = require("../models");
 
-const brandsGet = async (req, res) => {
-  const brands = await Brand.find();
+const { Brand } = require('../models');
 
-  res.json({ brands });
-};
 
-const brandsPost = async (req, res) => {
-  const brandData = req.body;
+const brandsGet = async(req, res) =>{
 
-  const brandDB = await Brand.findOne({ name: brandData.name });
+    const brands = await Brand.find();
+    
+    res.json({ brands })
+}
 
-  if (brandDB) {
-    return res.status(400).json({ msg: `brand ${brandData.name} exist` });
-  }
 
-  const data = {
-    ...resto,
-  };
+const brandsPost = async (req, res) =>{
+   
+    const brandData = req.body;
 
-  const brand = new Brand(data);
+    const brandDB = await Brand.findOne({ 'name':brandData.name });
 
-  await brand.save();
+    if(brandDB){
+        return res.status(400).json({msg: `brand ${ brandData.name } exist`});
+    }
 
-  res.status(201).json(brand);
-};
+    const data = {
+        ...resto
+    }
 
-const brandsPut = async (req, res) => {
-  const { id } = req.params;
-  const brandData = req.body;
+    const brand = new Brand(data);
 
-  const brand = await Brand.findByIdAndUpdate(id, brandData);
+    await brand.save();
 
-  res.json({ msg: "put", brand });
-};
+    res.status(201).json(brand);
+
+}
+
+
+const brandsPut = async(req, res) =>{
+    const { id } = req.params;
+    const brandData = req.body;
+
+
+    const brand = await Brand.findByIdAndUpdate(id, brandData);
+
+
+    res.json({ 'msg': 'put', brand })
+}
+
 
 module.exports = {
-  brandsGet,
-  brandsPost,
-  brandsPut,
-};
+    brandsGet,
+    brandsPost,
+    brandsPut
+}
